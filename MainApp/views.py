@@ -15,6 +15,7 @@ def add_snippet_page(request):
 
 def snippets_page(request):
     context = {
+        'pagename': 'Все сниппеты',
         'snippets': Snippet.objects.all(),
         'snippets_count': Snippet.objects.count()
         }
