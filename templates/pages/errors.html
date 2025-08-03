@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Begin page content -->
+<main role="main" class="mt-3 flex-shrink-0">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <h1>{{ pagename }}</h1>
+                <hr>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                {{ error }}
+                <hr>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
