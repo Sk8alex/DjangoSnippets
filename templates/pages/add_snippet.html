@@ -14,7 +14,8 @@
 
         <div class="row">
             <div class="col">
-                <form action="{% url "create-snippet" %}" method="post">
+                <form action="" method="post">
+                {% comment %} <form action="{% url "create-snippet" %}" method="post"> {% endcomment %}
                     {% csrf_token %}
                     <table>
                         {{ form}}
