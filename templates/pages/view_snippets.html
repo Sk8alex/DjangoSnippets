@@ -29,8 +29,8 @@
                         <th scope="col">Название</th>
                         <th scope="col">Язык</th>
                         <th scope="col">Дата создания</th>
-
                         <th scope="col">Дeйствия</th>
+                        <th scope="col">Автор</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -50,6 +50,7 @@
                                     {% csrf_token %}
                                 </form>
                             </td>
+                            <td>{{ snippet.user.username}}</td>
                             <td>
                                 {% comment %} <a href="{% url "snippet-delete" snippet.id %}">
                                 <i style="color: red;" class="fa-solid fa-trash"></i> {% endcomment %}
