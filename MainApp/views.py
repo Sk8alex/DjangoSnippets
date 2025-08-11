@@ -1,5 +1,5 @@
 from django.http import Http404, HttpResponse, HttpResponseNotAllowed
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from MainApp.models import Snippet
 from django.core.exceptions import ObjectDoesNotExist
 from MainApp.forms import SnippetForm
@@ -59,4 +59,17 @@ def snippet_detail(request, snippet_id: int):
 #             return redirect("snippets-list") #URL для списка сниппетов
 #         return render(request, "pages/add_snippet.html", context={"form": form})
 #     return HttpResponseNotAllowed(["POST"], "You must make POST request to add snippet.")
+
+
+def snippet_delete(request, snippet_id: int):
+    if request.method == "GET" or request.method == "POST":
+        snippet = get_object_or_404(Snippet, id=snippet_id)
+        snippet.delete()
+
+    return redirect("snippets-list")
+
+
+
+def snippet_edit(request, snippet_id: int):
+    pass
 
