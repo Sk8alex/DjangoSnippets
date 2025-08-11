@@ -4,6 +4,7 @@
 1. `python3 -m venv django_venv`
 
 2. `source django_venv/bin/activate`
+fuser -k 8000/tcp
 
 3. `pip install -r requirements.txt`
 

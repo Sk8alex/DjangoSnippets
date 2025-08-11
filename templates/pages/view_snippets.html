@@ -39,9 +39,6 @@
                             <td scope="row">{{ snippet.id }}</td>
                             <td>
                                 <a href="{% url "snippet-detail" snippet.id %}"> {{ snippet.name }}</a>
-                                {% comment %} <a href="{% url "snippet-delete" snippet.id %}">
-                                    <i style="color: red;" class="fa-solid fa-trash"></i> {% endcomment %}
-                                </a>
                             </td>
                             <td> {{ snippet.lang }} </td>
                             {# Ссылка на возможности форматирования дат #}
@@ -54,8 +51,8 @@
                                 </form>
                             </td>
                             <td>
-                                <a href="{% url "snippet-delete" snippet.id %}">
-                                <i style="color: red;" class="fa-solid fa-trash"></i>
+                                {% comment %} <a href="{% url "snippet-delete" snippet.id %}">
+                                <i style="color: red;" class="fa-solid fa-trash"></i> {% endcomment %}
                                 </a>
                             </td>
                             
