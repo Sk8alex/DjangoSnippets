@@ -76,7 +76,21 @@ def snippet_delete(request, snippet_id: int):
 
 
 def snippet_edit(request, snippet_id: int):
-    pass
+    """ Edit snippet"""
+    context = {'pagename': 'Обновление сниппета'}
+    snippet = get_object_or_404(Snippet, id=snippet_id)
+    # Создаем форму на основе данных snippet'a при запросе GET
+    if request.method == "GET":
+        form = SnippetForm(instance=snippet)
+        return render(request, 'pages/edit_snippet.html', context | {"form": form})
+    
+    # Получаем данные из формы и на их основе обновляем сниппет, сохраняя его в БД
+    if request.method == "POST":
+        data_form = request.POST
+        snippet.name = data_form["name"]
+        snippet.code = data_form["code"]
+        snippet.save()
+        return redirect("snippets-list") # URL для списка сниппитов
 
 
 def login(request):
@@ -98,3 +112,5 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect(to="home")
+
+

@@ -14,9 +14,9 @@
 
         <div class="row">
             <div class="col">
-                <p>На данной страницы будут отображаться все созданные сниппеты.</p>
-                <p>Пока тут просто пример, но скоро заменим реальными сниппетами из БД!</p>
-                <hr>
+                {% comment %} <p>На данной страницы будут отображаться все созданные сниппеты.</p>
+                <p>Пока тут просто пример, но скоро заменим реальными сниппетами из БД!</p> {% endcomment %}
+                {% comment %} <hr> {% endcomment %}
             </div>
         </div>
 
@@ -39,16 +39,26 @@
                             <td scope="row">{{ snippet.id }}</td>
                             <td>
                                 <a href="{% url "snippet-detail" snippet.id %}"> {{ snippet.name }}</a>
+
+                                {% comment %} <a href="{% url "snippet-edit" snippet.id %}"> 
+                                    <i style="color: blue;" class="bi bi-pen"></i>
+                                </a> {% endcomment %}
+
                             </td>
                             <td> {{ snippet.lang }} </td>
                             {# Ссылка на возможности форматирования дат #}
                             {# https://docs.djangoproject.com/en/5.2/ref/templates/builtins/#std-templatefilter-date #}
                             <td> {{ snippet.creation_date | date:"d F Y H:i:s" }}</td>
                             <td>
+                                <div style="display: flex; flex-direction: row;">
+                                <a href="{% url "snippet-edit" snippet.id %}" class="btn btn-info">Edit</a>
+                                &nbsp;&nbsp;
+
                                 <form action="{% url "snippet-delete" snippet.id %}" methot="post">
                                     <button type="submit" class ="btn btn-danger">Delete</button>
                                     {% csrf_token %}
                                 </form>
+                                </div>
                             </td>
                             <td>{{ snippet.user.username}}</td>
                             <td>
