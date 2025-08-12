@@ -32,6 +32,7 @@
                         <th scope="col">Дата создания</th>
                         <th scope="col">Дeйствия</th>
                         <th scope="col">Автор</th>
+                        <th scope="col">Видимость</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -42,12 +43,14 @@
                                 <a href="{% url "snippet-detail" snippet.id %}"> {{ snippet.name }}</a>
                             </td>
                             <td>
+                                {% if  snippet.user == request.user %}
                                 <a href="{% url "snippet-delete" snippet.id %}"> 
                                     <i style="color: red;" class="fa-solid fa-trash"></i>&nbsp;&nbsp;
                                 </a>
                                 <a href="{% url "snippet-edit" snippet.id %}"> 
                                     <i style="color: teal;" class="fa-solid fa-pen-to-square"></i>
                                 </a>
+                                {% endif %}
                             </td>
 
                             <td> {{ snippet.lang }} </td>
@@ -70,6 +73,13 @@
                                 {% comment %} <a href="{% url "snippet-delete" snippet.id %}">
                                 <i style="color: red;" class="fa-solid fa-trash"></i> {% endcomment %}
                                 </a>
+                            </td>
+                            <td>
+                                {% if snippet.public %}
+                                Публичный
+                                {% else %}
+                                Приватный
+                                {% endif %}
                             </td>
                             
                         </tr>
