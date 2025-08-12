@@ -90,6 +90,7 @@ def snippet_edit(request, snippet_id: int):
         data_form = request.POST
         snippet.name = data_form["name"]
         snippet.code = data_form["code"]
+        snippet.lang = data_form["lang"]
         snippet.save()
         return redirect("snippets-list") # URL для списка сниппитов
 
