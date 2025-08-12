@@ -108,12 +108,13 @@ def snippet_edit(request, snippet_id: int):
     # Получаем данные из формы и на их основе обновляем сниппет, сохраняя его в БД
     if request.method == "POST":
         data_form = request.POST
+        print(f'{data_form=}')
         snippet.name = data_form["name"]
         snippet.code = data_form["code"]
         snippet.lang = data_form["lang"]
-        snippet.public = data_form["public"]
+        snippet.public = data_form.get("public", False)
         snippet.save()
-        return redirect("snippets-list") # URL для списка сниппитов
+        return redirect("my-snippets") # URL для списка сниппитов
 
 
 def login(request):
