@@ -18,8 +18,12 @@
                         <div class="col col-8">
                             Название: <input type="text" value="{{ snippet.name }}" class="form-control">
                         </div>
+                        
                         <div class="col col-4">
                             Дата создания:<input type="text" value="{{ snippet.creation_date}}" class="form-control">
+                        </div>
+                        <div class="col col-4">
+                            Язык:<input type="text" value="{{ snippet.lang}}" class="form-control">
                         </div>
                     </div>
                     <hr>
@@ -32,9 +36,19 @@
                             </div>
                         </div>
                     </div>
+                                                    <a href="{% url "snippet-delete" snippet.id %}"> 
+                                    <i style="color: red;" class="fa-solid fa-trash"></i>&nbsp;&nbsp;
                 </fieldset>
+                                                <form action="{% url "snippet-delete" snippet.id %}" methot="post">
+                                    <button type="submit" class ="btn btn-danger">Delete</button>
+                                    {% csrf_token %}
+                                </form>
+                <hr>
+                    <div style="display: flex; flex-direction: row;">
+                    <a href="{% url "snippet-edit" snippet.id %}" class="btn btn-info">Edit</a>
 
             </div>
+            
         </div>
     </div>
 {% endblock %} 

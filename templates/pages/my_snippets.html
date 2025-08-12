@@ -27,6 +27,7 @@
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Название</th>
+                        <th scope="col">Иконки</th>
                         <th scope="col">Язык</th>
                         <th scope="col">Дата создания</th>
                         <th scope="col">Дeйствия</th>
@@ -36,15 +37,19 @@
                     <tbody>
                     {% for snippet in snippets %}    
                         <tr>
-                            <td scope="row">{{ snippet.id }}</td>
+                           <td scope="row">{{ snippet.id }}</td>
                             <td>
                                 <a href="{% url "snippet-detail" snippet.id %}"> {{ snippet.name }}</a>
-
-                                {% comment %} <a href="{% url "snippet-edit" snippet.id %}"> 
-                                    <i style="color: blue;" class="bi bi-pen"></i>
-                                </a> {% endcomment %}
-
                             </td>
+                            <td>
+                                <a href="{% url "snippet-delete" snippet.id %}"> 
+                                    <i style="color: red;" class="fa-solid fa-trash"></i>&nbsp;&nbsp;
+                                </a>
+                                <a href="{% url "snippet-edit" snippet.id %}"> 
+                                    <i style="color: teal;" class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                            </td>
+
                             <td> {{ snippet.lang }} </td>
                             {# Ссылка на возможности форматирования дат #}
                             {# https://docs.djangoproject.com/en/5.2/ref/templates/builtins/#std-templatefilter-date #}
@@ -79,7 +84,8 @@
                     </tbody>
                 </table>
                 <div align="right">
-                    <i style="color: gray;">Всего сниппетов: {{ snippets_count }} или {{ snippets.count}}</i>
+                    <i style="color: gray;">Всего сниппетов в БД: {{ snippets_count }} 
+                    <br>Мои сниппеты: {{ snippets.count}}</i>
                     {% comment %} <i style="color: gray;">Всего сниппетов: 2</i> {% endcomment %}
                 </div>
             </div>

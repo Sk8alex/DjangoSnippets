@@ -27,6 +27,7 @@
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Название</th>
+                        <th scope="col">Иконки</th>
                         <th scope="col">Язык</th>
                         <th scope="col">Дата создания</th>
                         <th scope="col">Дeйствия</th>
@@ -36,23 +37,32 @@
                     <tbody>
                     {% for snippet in snippets %}    
                         <tr>
-                            <td scope="row">{{ snippet.id }}</td>
+                           <td scope="row">{{ snippet.id }}</td>
                             <td>
                                 <a href="{% url "snippet-detail" snippet.id %}"> {{ snippet.name }}</a>
-
-                                {% comment %} <a href="{% url "snippet-edit" snippet.id %}"> 
-                                    <i style="color: blue;" class="bi bi-pen"></i>
-                                </a> {% endcomment %}
-
                             </td>
+                            <td>
+                                <a href="{% url "snippet-delete" snippet.id %}"> 
+                                    <i style="color: red;" class="fa-solid fa-trash"></i>&nbsp;&nbsp;
+                                </a>
+                                <a href="{% url "snippet-edit" snippet.id %}"> 
+                                    <i style="color: teal;" class="fa-solid fa-pen-to-square"></i>
+                                </a>
+                            </td>
+                            
                             <td> {{ snippet.lang }} </td>
                             {# Ссылка на возможности форматирования дат #}
                             {# https://docs.djangoproject.com/en/5.2/ref/templates/builtins/#std-templatefilter-date #}
                             <td> {{ snippet.creation_date | date:"d F Y H:i:s" }}</td>
                             <td>
+
+
                                 <div style="display: flex; flex-direction: row;">
                                 <a href="{% url "snippet-edit" snippet.id %}" class="btn btn-info">Edit</a>
-                                &nbsp;&nbsp;
+
+                                {% comment %} пробелы {% endcomment %}
+                                &nbsp;&nbsp; 
+
 
                                 <form action="{% url "snippet-delete" snippet.id %}" methot="post">
                                     <button type="submit" class ="btn btn-danger">Delete</button>
@@ -61,11 +71,6 @@
                                 </div>
                             </td>
                             <td>{{ snippet.user.username}}</td>
-                            <td>
-                                {% comment %} <a href="{% url "snippet-delete" snippet.id %}">
-                                <i style="color: red;" class="fa-solid fa-trash"></i> {% endcomment %}
-                                </a>
-                            </td>
                             
                         </tr>
                     {% empty %}
