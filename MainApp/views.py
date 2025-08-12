@@ -4,6 +4,7 @@ from MainApp.models import Snippet
 from django.core.exceptions import ObjectDoesNotExist
 from MainApp.forms import SnippetForm
 from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -94,23 +95,35 @@ def snippet_edit(request, snippet_id: int):
 
 
 def login(request):
-   if request.method == 'POST':
-       username = request.POST.get("username")
-       password = request.POST.get("password")
-       # print("username =", username)
-       # print("password =", password)
-       user = auth.authenticate(request, username=username, password=password)
-       if user is not None:
-           auth.login(request, user)
-       else:
-           # Return error message
-           pass
-   return redirect('home')
+    if request.method == 'POST':
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        user = auth.authenticate(request, username=username, password=password)
+        if user is not None:
+            auth.login(request, user)
+        else:
+            context = {
+                "pagename": "PythonBin",
+                "errors": ["Wrong username or password"]
+            }
+            return render(request, "pages/index.html", context)
+    return redirect('home')
 
 
 
 def logout(request):
     auth.logout(request)
     return redirect(to="home")
+
+
+@login_required
+def my_snippets(request):
+    snippets = Snippet.objects.filter(user=request.user)
+    context = {
+        'pagename': 'Мои сниппеты',
+        "snippets": snippets,
+        'snippets_count': Snippet.objects.count()
+        }
+    return render(request, 'pages/my_snippets.html', context)
 
 
