@@ -150,3 +150,7 @@ def my_snippets(request):
     return render(request, 'pages/my_snippets.html', context)
 
 
+def create_user(request):
+    pass
+
+
