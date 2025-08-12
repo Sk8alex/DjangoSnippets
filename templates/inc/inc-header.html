@@ -65,6 +65,10 @@
                         {% endfor %}
                     </ul>
                 {% endif %}
+
+                {% comment %} Регистрация пользователя {% endcomment %}
+                <a style="padding-left: 10px;" href="{% url "register" %}" class="btn btn-warning">Регистрация</a>
+
             {% endif %}
 
 
