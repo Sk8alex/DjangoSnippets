@@ -36,19 +36,51 @@
                             </div>
                         </div>
                     </div>
-                                                    <a href="{% url "snippet-delete" snippet.id %}"> 
-                                    <i style="color: red;" class="fa-solid fa-trash"></i>&nbsp;&nbsp;
                 </fieldset>
-                                                <form action="{% url "snippet-delete" snippet.id %}" methot="post">
-                                    <button type="submit" class ="btn btn-danger">Delete</button>
-                                    {% csrf_token %}
-                                </form>
-                <hr>
+                <div>
+                    <br>
+                        <form action="{% url "snippet-delete" snippet.id %}" methot="post">
+                            <button type="submit" class ="btn btn-danger">Delete</button>
+                            {% csrf_token %}
+                        </form>
+                </div>
+                                    <hr>
                     <div style="display: flex; flex-direction: row;">
                     <a href="{% url "snippet-edit" snippet.id %}" class="btn btn-info">Edit</a>
 
+            </div> 
+            <br>
+                <table border="1">
+                    <tr>
+                        <td>Дата создания</td>
+                        <td>Автор</td>
+                        <td>Комментарий</td>
+                    </tr>
+
+                    {% for  comment in snippet.comments.all %}
+                    <tr>
+                        <td>{{ comment.creation_date }}</td>
+                        <td>{{ comment.author.username }}</td>
+                        <td>{{ comment.text }}</td>
+                    </tr>
+                    {% endfor %}
+
+                </table>
+                <br>
+                <div class='row mt-3'>
+                    <div class='col'>
+                        {% if  request.user.is_authenticated %}
+                            <form action="{% url "comment-add" %}" method="POST">
+                                {{comment_form}}
+                                <input type="hidden" name="snippet_id" value="{{snippet.id}}">
+                                <br>
+                                <button type="submit">Добавить комментарий</button>
+                                {% csrf_token %}
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
-            
         </div>
     </div>
 {% endblock %} 

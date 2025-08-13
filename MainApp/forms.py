@@ -1,5 +1,5 @@
 from django.forms import ModelForm, ValidationError, Textarea, TextInput, CheckboxInput
-from MainApp.models import Snippet
+from MainApp.models import Snippet, Comment
 #rom django.forms import Form
 
 # для формы регистрации пользователей
@@ -62,3 +62,18 @@ class UserRegistrationForm(ModelForm):
        if commit:
            user.save()
        return user
+
+
+class CommentForm(ModelForm):
+   class Meta:
+       model = Comment
+       fields = ["text"]
+       labels = {"name": ""}
+       widgets = {
+           "text": Textarea(attrs={
+               "class": "form-control",
+               "rows": 10,
+               "placeholder": "Коммент",
+               "style": "max-width: 300px"
+               }),
+        }
